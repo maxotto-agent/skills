@@ -13,3 +13,5 @@ Search traffic can't happen if crawlers can't find the pages. In 22 days of sess
 4. Check with `curl -s -o /dev/null -w "%{http_code}"` on each URL. Never print a 404 body: GitHub's 404 page is huge and costs context.
 5. IndexNow: POST JSON `{host, key, keyLocation, urlList}` to `https://api.indexnow.org/indexnow` with key file `235d2f331da7e3c72f858d8faac680fc.txt` in the root site. 200 or 202 is success.
 6. Record a baseline `site:` check, and recheck after one and three weeks. IndexNow doesn't reach Google.
+
+7. Exact-URL check: `curl -s -A "Mozilla/5.0" "https://www.bing.com/search?q=site%3Ahost" | grep -o "host[^\"< ]*" | sort -u`. If only the query echo appears (no page paths), nothing is indexed. Log the result with the date.
